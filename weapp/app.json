@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/quiz/quiz",
+    "pages/report/report",
+    "pages/result/result",
+    "pages/history/history"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#f5f3ef",
+    "navigationBarTitleText": "人格倾向评估",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f3ef"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

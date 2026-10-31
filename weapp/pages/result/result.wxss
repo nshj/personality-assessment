@@ -1,0 +1,40 @@
+.head { padding: 8rpx 0 32rpx; }
+
+.preview {
+  width: 100%;
+  border-radius: 24rpx;
+  box-shadow: 0 12rpx 40rpx -12rpx rgba(21, 20, 25, 0.25);
+  display: block;
+}
+
+.scard {
+  width: 690rpx;
+  height: 1228rpx;
+  border-radius: 24rpx;
+  display: block;
+  margin: 0 auto;
+}
+
+.scard.hide {
+  position: fixed;
+  left: -3000rpx;
+  top: 0;
+}
+
+.acts { margin-top: 40rpx; }
+
+.tipx {
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 22rpx;
+}
+
+.err {
+  padding: 40rpx;
+  border-radius: 20rpx;
+  background: #fcebeb;
+  color: #a32d2d;
+  font-size: 26rpx;
+  line-height: 1.8;
+}

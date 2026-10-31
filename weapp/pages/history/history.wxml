@@ -1,0 +1,26 @@
+<view class="page">
+  <view wx:if="{{!list.length}}" class="empty">
+    <view class="h2">还没有记录</view>
+    <view class="lead">每次答完都会自动存一条在这里，最多保留 20 条。只存在本机，清缓存或换手机会丢。</view>
+    <button class="btn" bindtap="onGo">去测一次</button>
+  </view>
+
+  <view wx:else>
+    <view class="hint">点开任意一条可以回看当时的完整报告。</view>
+
+    <view class="item" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpen">
+      <view class="il">
+        <text class="icode">{{item.fullCode}}</text>
+        <text class="iname">{{item.typeName}}</text>
+      </view>
+      <view class="ir">
+        <text class="idate">{{item.date}}</text>
+        <text class="iconf {{item.cls}}">一致性 {{item.consistency}}</text>
+      </view>
+    </view>
+
+    <view class="clear" bindtap="onClear">清空所有记录</view>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>

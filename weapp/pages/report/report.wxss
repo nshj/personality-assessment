@@ -1,0 +1,472 @@
+/* ---------- 类型标题 ---------- */
+.hero {
+  text-align: center;
+  padding: 20rpx 0 48rpx;
+  border-bottom: 1rpx solid var(--line2);
+  margin-bottom: 44rpx;
+}
+
+.rlabel {
+  font-size: 22rpx;
+  letter-spacing: 5rpx;
+  color: var(--muted);
+  margin-bottom: 24rpx;
+}
+
+.rcode {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 108rpx;
+  line-height: 1;
+  letter-spacing: 6rpx;
+  color: var(--a1);
+  margin-bottom: 20rpx;
+}
+
+/* 信息量不足时的「—」，不用品牌紫，避免看起来像一个结论 */
+.rcode-none {
+  font-size: 96rpx;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.rid {
+  font-size: 40rpx;
+  letter-spacing: 2rpx;
+  vertical-align: super;
+  opacity: 0.8;
+}
+
+.rname {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.rtag {
+  font-size: 26rpx;
+  color: var(--ink3);
+  line-height: 1.7;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.rmeta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.rm {
+  display: flex;
+  align-items: center;
+}
+
+.rm::before {
+  content: '';
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: var(--a1);
+  opacity: 0.5;
+  margin-right: 10rpx;
+}
+
+/* ---------- 节标题 ---------- */
+.sec { margin-bottom: 56rpx; }
+
+.sec-h {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.num {
+  font-family: Georgia, serif;
+  font-size: 22rpx;
+  color: var(--a1);
+  letter-spacing: 1rpx;
+  opacity: 0.85;
+}
+
+.st {
+  font-size: 33rpx;
+  font-weight: 700;
+  letter-spacing: -0.5rpx;
+}
+
+.ssub {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+/* ---------- 五维 ---------- */
+.dim { margin-bottom: 34rpx; }
+
+.dim-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+}
+
+.pole {
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+  color: var(--muted);
+}
+
+.pb { font-size: 26rpx; letter-spacing: 1rpx; }
+
+.pe { font-size: 21rpx; }
+
+.pole.on { color: var(--ink); font-weight: 700; }
+
+.pole.on .pe { color: var(--a1); font-weight: 700; }
+
+.track {
+  height: 14rpx;
+  background: var(--line2);
+  border-radius: 8rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 8rpx;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+}
+
+.fill.right { margin-left: auto; }
+
+.dim-foot {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.tier {
+  font-size: 20rpx;
+  padding: 2rpx 14rpx;
+  border-radius: 8rpx;
+  background: var(--soft);
+  color: var(--a1);
+  font-weight: 700;
+}
+
+/* ---------- 可信度 ---------- */
+.conf {
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.conf-cell {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 24rpx 28rpx;
+  border-bottom: 1rpx solid var(--line);
+  background: #fff;
+}
+
+.conf-cell:last-child { border-bottom: none; }
+
+.ck { font-size: 23rpx; color: var(--muted); }
+
+.cv { font-size: 38rpx; font-weight: 700; letter-spacing: -0.5rpx; }
+
+.cu {
+  font-size: 22rpx;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 6rpx;
+}
+
+.g-ok { color: var(--ok); }
+.g-mid { color: var(--warn); }
+.g-low { color: var(--bad); }
+
+/* ---------- 通用块 ---------- */
+.block {
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  padding: 32rpx 30rpx;
+  background: var(--surface2);
+  margin-bottom: 20rpx;
+}
+
+.np {
+  font-size: 27rpx;
+  line-height: 1.9;
+  color: var(--ink2);
+  margin-bottom: 18rpx;
+}
+
+.bk { font-weight: 700; color: var(--ink); }
+
+.tip {
+  font-size: 22rpx;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-top: 14rpx;
+}
+
+.p { font-size: 27rpx; line-height: 1.9; color: var(--ink2); }
+
+.mt8 { margin-top: 16rpx; }
+
+.h3 { font-size: 29rpx; font-weight: 700; margin-bottom: 14rpx; color: var(--ink); }
+
+.sub-h {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-bottom: 16rpx;
+}
+
+.misread {
+  margin-top: 22rpx;
+  padding-left: 20rpx;
+  border-left: 4rpx solid var(--line);
+  font-size: 23rpx;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ---------- 功能栈 ---------- */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin: 24rpx 0 6rpx;
+}
+
+.fn {
+  width: calc(50% - 6rpx);
+  border: 1rpx solid var(--line);
+  border-radius: 18rpx;
+  padding: 20rpx 22rpx;
+  background: #fff;
+}
+
+.fn.dom { border-color: var(--a1); background: var(--soft); }
+
+.f1 {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 34rpx;
+  letter-spacing: 1rpx;
+}
+
+.f2 {
+  display: block;
+  font-size: 20rpx;
+  color: var(--muted);
+  margin-top: 4rpx;
+}
+
+.f3 {
+  display: block;
+  font-size: 19rpx;
+  letter-spacing: 2rpx;
+  color: var(--a1);
+  margin-top: 10rpx;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+/* ---------- 列表项 ---------- */
+.kv-item {
+  display: flex;
+  gap: 20rpx;
+  font-size: 26rpx;
+  line-height: 1.8;
+  color: var(--ink2);
+  margin-bottom: 14rpx;
+}
+
+.kv-item:last-child { margin-bottom: 0; }
+
+.dot {
+  flex: 0 0 auto;
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--a1);
+  font-size: 20rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6rpx;
+}
+
+.sm-dot {
+  background: transparent;
+  font-size: 26rpx;
+  width: 16rpx;
+}
+
+.kt { flex: 1; }
+
+/* ---------- 洞察 ---------- */
+.ins {
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  padding: 28rpx 30rpx;
+  background: #fff;
+  margin-bottom: 18rpx;
+}
+
+.ins-h {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-bottom: 12rpx;
+}
+
+.in {
+  font-family: Georgia, serif;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.it {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.tag {
+  font-size: 19rpx;
+  letter-spacing: 1rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+  background: var(--soft);
+  color: var(--a1);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ip { font-size: 26rpx; line-height: 1.85; color: var(--ink2); }
+
+/* ---------- 星座 ---------- */
+.zod {
+  border: 1rpx dashed var(--line);
+  border-radius: 24rpx;
+  padding: 30rpx;
+}
+
+.zod-h {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 14rpx;
+}
+
+.zn {
+  font-family: Georgia, serif;
+  font-size: 34rpx;
+}
+
+.pill {
+  font-size: 21rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 99rpx;
+  background: var(--soft);
+  color: var(--a1);
+  font-weight: 600;
+}
+
+.warn {
+  font-size: 22rpx;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 18rpx;
+}
+
+/* ---------- 明细 ---------- */
+.sheet {
+  border: 1rpx solid var(--line);
+  border-radius: 24rpx;
+  overflow: hidden;
+  background: #fff;
+}
+
+.sheet-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26rpx 30rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--ink2);
+}
+
+.sheet-ar { color: var(--muted); }
+
+.sheet-body {
+  max-height: 620rpx;
+  overflow-y: auto;
+  border-top: 1rpx solid var(--line2);
+}
+
+.srow {
+  display: flex;
+  gap: 20rpx;
+  padding: 16rpx 30rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: var(--ink2);
+  border-bottom: 1rpx solid var(--line2);
+}
+
+.srow:nth-child(even) { background: var(--surface2); }
+
+.si { flex: 0 0 40rpx; color: var(--muted); font-size: 22rpx; }
+
+.stq { flex: 1; }
+
+.sv {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: var(--a1);
+  font-size: 22rpx;
+}
+
+/* ---------- 操作 ---------- */
+.ops { margin-top: 20rpx; }
+
+.mt { margin-top: 20rpx; }
+
+.ops-row {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.ops-row .btn { flex: 1; }
+
+.disclaim {
+  font-size: 21rpx;
+  color: var(--muted);
+  line-height: 1.9;
+  text-align: center;
+  margin-top: 48rpx;
+  padding-top: 32rpx;
+  border-top: 1rpx solid var(--line2);
+}

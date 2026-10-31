@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#f8f5ff"/>
+      <stop offset="1" stop-color="#ebe2fa"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6650d2"/>
+      <stop offset="1" stop-color="#a25fd0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g>
+    <line x1="312.8" y1="628.5" x2="230.1" y2="658.6" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+    <line x1="351.1" y1="507.8" x2="224.6" y2="470.0" stroke="url(#acc)" stroke-width="66" stroke-linecap="round"/>
+    <line x1="385.4" y1="385.9" x2="332.9" y2="315.4" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+    <line x1="512.0" y1="344.0" x2="512.0" y2="256.0" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+    <line x1="638.6" y1="385.9" x2="691.1" y2="315.4" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+    <line x1="715.1" y1="495.2" x2="799.4" y2="470.0" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+    <line x1="711.2" y1="628.5" x2="793.9" y2="658.6" stroke="#cfc1f3" stroke-width="38" stroke-linecap="round"/>
+  </g>
+</svg>

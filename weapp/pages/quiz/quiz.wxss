@@ -1,0 +1,155 @@
+.quiz { padding-top: 24rpx; }
+
+.qhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16rpx;
+}
+
+.qcount {
+  font-size: 23rpx;
+  letter-spacing: 2rpx;
+  color: var(--muted);
+}
+
+.qnum {
+  font-size: 30rpx;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.pbar {
+  height: 8rpx;
+  background: var(--line2);
+  border-radius: 4rpx;
+  overflow: hidden;
+  margin-bottom: 72rpx;
+}
+
+.pfill {
+  height: 100%;
+  border-radius: 4rpx;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  transition: width 0.35s ease;
+}
+
+.qtext {
+  font-size: 44rpx;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: -0.5rpx;
+  min-height: 260rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.opts {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 20rpx;
+}
+
+.opt {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2rpx solid var(--ctrl-line);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+/* 滑动经过但未确认：空心紫环，和选中态（实心渐变）区分开 */
+.opt.pv {
+  border-color: var(--a1);
+  background: #f4f1fd;
+}
+
+.dot {
+  border-radius: 50%;
+  background: var(--ink3);
+}
+
+.opt.pv .dot { background: var(--a1); }
+
+.opt.sel {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--a1), var(--a2));
+}
+
+.opt.sel .dot { background: #fff; }
+
+/* 首题演示用的“手指”，只在 hintOn 时挂载；停在档位名与圆点之间，不压字也不挡圆环 */
+.finger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56rpx;
+  height: 56rpx;
+  margin: -58rpx 0 0 -28rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(102, 80, 210, 0.42);
+  background: rgba(102, 80, 210, 0.10);
+  pointer-events: none;
+  transition: left 0.28s cubic-bezier(0.3, 0.8, 0.4, 1);
+  animation: fingerIn 0.22s ease-out both;
+  z-index: 2;
+}
+
+@keyframes fingerIn {
+  from { opacity: 0; transform: scale(0.86); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.d1, .d7 { width: 26rpx; height: 26rpx; }
+.d2, .d6 { width: 20rpx; height: 20rpx; }
+.d3, .d5 { width: 14rpx; height: 14rpx; }
+.d4 { width: 10rpx; height: 10rpx; }
+
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-bottom: 18rpx;
+}
+
+/* 档位名放在刻度上方：拇指够不到这个位置，滑动时也能看清 */
+.scale-now {
+  text-align: center;
+  font-size: 25rpx;
+  color: var(--a1);
+  font-weight: 600;
+  height: 44rpx;
+  line-height: 44rpx;
+  margin-bottom: 60rpx;
+}
+
+.qnav {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-top: 48rpx;
+  padding: 28rpx 0 calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, #f5f3ef 72%, rgba(245, 243, 239, 0));
+}
+
+.shake { animation: shake 0.4s; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-14rpx); }
+  40% { transform: translateX(14rpx); }
+  60% { transform: translateX(-8rpx); }
+  80% { transform: translateX(8rpx); }
+}

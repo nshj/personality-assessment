@@ -1,0 +1,39 @@
+<view class="page quiz">
+  <view class="qhead">
+    <view class="qcount"><text class="qnum">{{idx + 1}}</text> / {{total}}</view>
+    <view class="qcount">已答 {{done}}</view>
+  </view>
+
+  <view class="pbar"><view class="pfill" style="width:{{pct}}%"></view></view>
+
+  <view class="qtext">{{text}}</view>
+
+  <view class="scale-now">{{nowLabel}}</view>
+
+  <view
+    class="opts {{shaking ? 'shake' : ''}}"
+    bindtouchstart="onTouchStart"
+    catchtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    bindtouchcancel="onTouchCancel"
+  >
+    <view
+      wx:for="{{levels}}"
+      wx:key="v"
+      class="opt {{pv === item.v ? 'pv' : ''}} {{sel === item.v ? 'sel' : ''}}"
+    >
+      <view class="dot d{{item.v}}"></view>
+    </view>
+    <view wx:if="{{hintOn}}" class="finger" style="left:{{fingerLeft}}%"></view>
+  </view>
+
+  <view class="scale-ends">
+    <text>非常不同意</text>
+    <text>非常同意</text>
+  </view>
+
+  <view class="qnav">
+    <button class="btn ghost sm" bindtap="onPrev" disabled="{{idx === 0}}">上一题</button>
+    <button class="btn sm {{isLast ? '' : 'ghost'}}" bindtap="onNext">{{nextLabel}}</button>
+  </view>
+</view>

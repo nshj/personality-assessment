@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>MBTI 人格倾向评估</title>
+<meta name="description" content="60 题自评问卷，5 个维度含情绪稳定性。全部计算在本机完成，不联网、不上传。">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar no-print">
+    <div class="brand" id="brand" role="button" tabindex="0" title="回到首页"><i></i><span data-site-name>MBTI 人格倾向评估</span></div>
+    <div class="topbar-r">
+      <button class="iconbtn txt" id="btnAbout">关于</button>
+      <button class="iconbtn" id="btnTheme" title="切换深浅色">◐</button>
+    </div>
+  </div>
+
+  <!-- ============ 1. 封面 ============ -->
+  <section class="screen on card narrowcard" id="scrIntro">
+    <div class="eyebrow">60 题 · 5 个维度 · 全部在本机完成</div>
+    <h1>MBTI 人格倾向<br><em>评估</em></h1>
+    <p class="lead">
+      一份参照 16Personalities（60 题 / 7 级同意度 / 含 A-T 身份维度）与 MBTI® Step I 框架编写的中文自评问卷。
+      答完之后，分析会<b>在这台设备上直接算出来</b>——不联网、不上传、不需要注册。
+    </p>
+
+    <div class="facts">
+      <div class="fact"><b>60</b><span>道题 · 约 8 分钟</span></div>
+      <div class="fact"><b>5</b><span>维度 · 含情绪稳定性</span></div>
+      <div class="fact"><b>0</b><span>网络请求</span></div>
+    </div>
+
+    <div class="note">
+      <h4>作答前请知道这三件事</h4>
+      <ul>
+        <li>凭第一反应选。犹豫超过 5 秒的题，通常说明两种状态你都符合——选稍偏的那一侧即可。</li>
+        <li>四个字母是把<b>连续倾向</b>在 50% 处切开得到的。得分接近 50% 的维度，字母本身意义不大，以百分比为准。</li>
+        <li>题里有正问也有反问。前后矛盾会被检测出来，并直接写进报告的可信度一栏。</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="btnStart">开始</button>
+      <button class="btn ghost" id="btnResume" style="display:none">继续上次（<span id="resumeN">0</span>/60）</button>
+      <button class="btn ghost" id="btnLastResult" style="display:none">查看上次结果</button>
+    </div>
+
+    <!-- 小程序码：默认隐藏，图片存在时由 site.js 自动显示；缺文件则整块不出现 -->
+    <div class="wxcard" id="wxCard">
+      <div class="wxcard-qr">
+        <img id="wxQr" src="assets/wx-qrcode.png" alt="小程序码">
+      </div>
+      <div class="wxcard-txt">
+        <h4>也可以微信扫码作答</h4>
+        <p>手机上点选更顺手，答完可以把结果存成一张图。小程序和网页是同一套 60 题、同一套计分。</p>
+      </div>
+    </div>
+
+    <div class="meta-foot">
+      <span>◈ 答案存在浏览器本地</span>
+      <span>◈ 报告由本机脚本生成</span>
+    </div>
+  </section>
+
+  <!-- ============ 2. 档案 ============ -->
+  <section class="screen card narrowcard" id="scrProfile">
+    <div class="eyebrow">第 1 步 / 共 2 步</div>
+    <h2 style="font-size:24px;letter-spacing:-.02em;margin-bottom:10px">先填一点背景</h2>
+    <p class="lead" style="font-size:14px">
+      这些信息不会离开这台设备。它们的作用是让最终解读更贴合你的处境——
+      <b>年龄</b>决定你处在哪个角色转换期，<b>性别</b>会影响同一特质被允许表达的方式。
+      全部可以不填，直接跳过不影响测试与计分。
+    </p>
+
+    <div class="form">
+      <div class="row2">
+        <div class="field">
+          <label>怎么称呼你 <span class="sub">选填</span></label>
+          <input class="input" id="fName" type="text" placeholder="昵称，会显示在报告上" maxlength="16" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>出生日期 <span class="sub">选填 · 只用来算年龄</span></label>
+          <input class="input" id="fBirth" type="date" min="1900-01-01" max="2026-12-31">
+          <div class="derived" id="derived" style="display:none"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>性别 <span class="sub">选填 · 用于校准自评偏差</span></label>
+        <div class="chips" id="fGender">
+          <button class="chip" data-v="male" type="button">男</button>
+          <button class="chip" data-v="female" type="button">女</button>
+          <button class="chip" data-v="other" type="button">其他</button>
+          <button class="chip on" data-v="" type="button">不透露</button>
+        </div>
+        <div class="hintline">研究里有个稳定现象：男性和女性在自评情感类题目时，会朝各自的社会期待偏一点。填了才能给出这条校准提示。</div>
+      </div>
+
+      <div class="note" style="margin-bottom:0">
+        <h4>关于生日与星座</h4>
+        <ul>
+          <li>星座与人格类型<b>没有可靠的统计关联</b>，所以它不会参与计分，也不会影响任何一个字母。</li>
+          <li>但如果你填了生日，报告末尾会附一小段星座对照，明确标注为文化趣味，不代表分析结论。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="actions" style="margin-top:26px">
+      <button class="btn" id="btnGoQuiz">进入答题</button>
+      <button class="btn ghost" id="btnSkipProfile">跳过</button>
+      <button class="btn ghost" id="btnBackIntro" style="margin-left:auto">返回</button>
+    </div>
+  </section>
+
+  <!-- ============ 3. 答题 ============ -->
+  <section class="screen card narrowcard" id="scrQuiz">
+    <div class="qhead">
+      <div class="qcount"><b id="qNum">1</b> / 60</div>
+      <div class="qcount" id="qDone">已答 0</div>
+    </div>
+    <div class="pbar"><div class="pfill" id="pFill"></div></div>
+
+    <div class="qtext" id="qText">题目加载中…</div>
+
+    <div class="scale-now" id="scaleNow">&nbsp;</div>
+
+    <div class="opts" id="opts"></div>
+    <div class="scale-ends"><span>非常不同意</span><span>非常同意</span></div>
+
+    <div class="qnav">
+      <button class="btn ghost sm" id="btnPrev">← 上一题</button>
+      <span class="hint">键盘 <kbd>1</kbd>–<kbd>7</kbd> 选择，<kbd>←</kbd><kbd>→</kbd> 翻页</span>
+      <button class="btn sm" id="btnNext">下一题 →</button>
+    </div>
+  </section>
+
+  <!-- ============ 4. 报告（由 report.js 生成） ============ -->
+  <section class="screen card" id="scrReport"></section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="core/questions.js"></script>
+<script src="core/dims.js"></script>
+<script src="core/types.js"></script>
+<script src="core/rules.js"></script>
+<script src="core/profile.js"></script>
+<script src="core/analyzer.js"></script>
+<script src="core/exportAI.js"></script>
+<script src="assets/report.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

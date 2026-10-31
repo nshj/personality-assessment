@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关于这份评估 · MBTI 人格倾向评估</title>
+<meta name="description" content="60 道题、5 个维度、一份由本地规则引擎生成的完整报告。全程离线，不联网、不上传、不需要账号。">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .doc h2{font-size:19px;margin:34px 0 12px;letter-spacing:-.01em}
+  .doc h2:first-of-type{margin-top:0}
+  .doc p{margin-bottom:12px}
+  .doc ul{margin:0 0 14px 0;padding-left:0;list-style:none}
+  .doc li{position:relative;padding-left:16px;font-size:14px;line-height:1.9;color:var(--ink-2);margin-bottom:6px}
+  .doc li::before{content:'';position:absolute;left:0;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--a1);opacity:.5}
+  .doc code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:var(--soft);color:var(--a1);padding:1px 6px;border-radius:5px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;table-layout:fixed}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line)}
+  th:nth-child(1),td:nth-child(1){width:19%}
+  th:nth-child(2),td:nth-child(2){width:12%;white-space:nowrap}
+  td b{color:var(--ink)}
+  .callout{border-left:2px solid var(--a1);padding:2px 0 2px 16px;margin:16px 0;font-size:13.5px;color:var(--ink-2);line-height:1.9}
+</style>
+</head>
+<body>
+<div class="wrap narrow">
+  <div class="topbar">
+    <div class="brand"><i></i><span>关于这份评估</span></div>
+    <div class="topbar-r">
+      <button class="iconbtn txt" onclick="location.href='index.html'">← 返回</button>
+      <button class="iconbtn" id="btnTheme" title="切换深浅色">◐</button>
+    </div>
+  </div>
+
+  <div class="card doc">
+    <div class="eyebrow">完全离线 · 无需注册 · 数据不出本机</div>
+    <h1 style="margin-bottom:14px">这份评估是什么</h1>
+    <p class="lead" style="font-size:15px">
+      60 道题、5 个维度、一份由本地规则引擎生成的完整报告，外加一份可以交给任意 AI 做深度解读的<b>「AI 解读包」</b>。
+      打开就能答，全过程<b>不联网、不上传、不需要账号</b>——你的答案从来没有离开过这台设备。
+    </p>
+
+    <h2>怎么答</h2>
+    <ul>
+      <li>点「开始」，先填一点背景（可以全部跳过，不影响计分），然后答 60 道题，约 8 分钟。</li>
+      <li>每题下面有七个圆点，从左到右是「非常不同意」到「非常同意」。点一下即选中并自动跳下一题；手机上也可以按住圆点左右滑动，滑到哪档就是哪档，松手才算选。</li>
+      <li>凭第一反应选。犹豫超过 5 秒的题，通常说明两种状态你都符合——选稍偏的那一侧即可。</li>
+      <li>答完自动生成报告，可以滚动阅读，也可以「打印 / 存为 PDF」带走。</li>
+      <li>中途关掉没关系，下次打开会问你要不要接着上次的进度答。</li>
+      <li>答完想让 AI 再深读一层：报告底部点「下载 AI 解读包」，把那个 <code>.md</code> 拖进任意 AI 对话框。</li>
+    </ul>
+
+    <h2>关于年龄、性别、生日</h2>
+    <table>
+      <tr><th>字段</th><th>建议</th><th>它有什么实际作用</th></tr>
+      <tr><td><b>年龄 / 生日</b></td><td>建议填</td><td>决定报告的「读法」：18 岁以下的结果更像状态快照，25–34 岁最适合做方向判断，35 岁后情绪稳定性（A/T）更容易被负荷拉低。</td></tr>
+      <tr><td><b>性别</b></td><td>选填</td><td>自评存在稳定的性别偏差：男性倾向压低情感类得分，女性更容易承认共情倾向。填了才会给出这一条校准提示。</td></tr>
+      <tr><td><b>星座</b></td><td>纯娱乐</td><td>由生日自动推导，放在报告最后，明确标注为非分析结论。<b>不参与任何计分</b>——占星与人格类型之间没有可靠的统计关联。</td></tr>
+    </table>
+    <div class="callout">三项都可以留空。留空时报告只是少几段针对性解读，测试和计分完全不受影响。</div>
+
+    <h2>报告里都有什么</h2>
+    <ul>
+      <li><b>01 五个维度</b>：百分比条，条长等于主导侧比例。</li>
+      <li><b>02 这份结果可信吗</b>：用 6 道正问题与 6 道反问题的吻合度算出一致性分数。这是这份问卷和其他在线测试最大的区别——它会告诉你哪几个维度不该信。</li>
+      <li><b>03 功能栈</b>：主导 / 辅助 / 第三 / 劣势功能，说明这一型内部是怎么运转的。</li>
+      <li><b>04 优势与代价</b>：同一种倾向的两面。</li>
+      <li><b>05 逐维细读</b>：每个维度按你的实际百分比，从强度分层里取对应文案。</li>
+      <li><b>06 针对你的判断</b>：规则库根据维度组合命中的具体洞察，不是通用鸡汤。</li>
+      <li><b>07–09</b>：工作 / 关系 / 压力反应、三条可执行建议、可选的星座对照。</li>
+      <li><b>10 导出 · 交给 AI 深度解读</b>：一键生成「AI 解读包」，以及 JSON 数据与 PDF。</li>
+    </ul>
+
+    <h2>数据存在哪里</h2>
+    <p>
+      答案和档案存在你这个浏览器的本地存储里。关掉网页不会丢，清除浏览器数据会丢。
+      换浏览器、换设备、或者用无痕模式，都不会把旧数据带过去。
+    </p>
+    <p>
+      想彻底清除：报告页底部点「重新测试」。
+    </p>
+
+    <h2>交给 AI 做深度解读</h2>
+    <p>
+      报告最后一节有<b>「AI 解读包」</b>。点一下「下载 AI 解读包」，会得到一个 <code>.md</code> 文件。
+      把这个文件<b>拖进任何 AI 助手的对话框</b>——ChatGPT、Claude、豆包、Kimi、元宝、DeepSeek 都行——直接发送，不用再补充说明。
+    </p>
+    <p>
+      它不是一份「答题记录」，而是一份<b>自包含的解读请求</b>。文件里包含：
+    </p>
+    <ul>
+      <li><b>角色与 6 条硬约束</b>：不许复述类型百科、每条判断必须挂题号、必须处理矛盾点、不越界做诊断。</li>
+      <li><b>六步执行顺序</b>：复算校验 → 题目级证据 → 维度级判断 → 组合读法 → 场景落地 → 反例与盲区 → 三条建议。</li>
+      <li><b>完整计分公式</b>与 60 题原始作答（含每题对维度的贡献值），所以 AI 可以<b>先复算再分析</b>，不是照抄你给的结论。</li>
+      <li><b>矛盾诊断</b>：哪几个维度正反向打架、哪些题选了满格、每个维度最偏离中立的 3 题。</li>
+      <li><b>本地报告已给出的方向</b>（只有标题），让 AI 去延伸或反驳，而不是换个说法重复一遍。</li>
+    </ul>
+    <div class="callout">
+      为什么要有「复算」这一步？因为它是判断对方有没有真读数据的唯一办法。文件里明确要求：先按公式把五个维度重算一遍，与给定结果对照，不一致就先指出差异。跳过这一步的回答，基本可以当作模板。
+    </div>
+    <p>
+      手机上不方便传文件时，用<b>「复制全文」</b>（内容与 .md 相同）或<b>「复制精简版」</b>（约 900 字：保留五维数据、逐题贡献、满格题与矛盾点，省掉 60 条题干）。
+    </p>
+
+    <h2>其他几种导出方式</h2>
+    <ul>
+      <li><b>JSON 文件</b>：点「下载完整数据」，里面除了 60 题作答，还有维度百分比、一致性分数、命中的规则。适合存档或做二次分析。</li>
+      <li><b>PDF</b>：点「打印 / 存为 PDF」，输出一份可以直接发给别人看的完整报告（约 7 页）。存出来的文件名会是你当前访问的网址，方便认出来源。</li>
+    </ul>
+
+    <h2>手机上也可以答</h2>
+    <p>
+      同一个项目还有一个微信小程序版，题目、计分、一致性检验与网页完全相同，同一个人在两处作答会得到同样的百分比。
+    </p>
+    <ul>
+      <li>电脑上适合认真答，答完能存 PDF、能导出 .md 交给其他 AI 深读。</li>
+      <li>手机上扫码更顺手，答完能生成一张结果图存进相册，之后随时回到小程序看完整报告。</li>
+      <li>首页底部有二维码，微信扫一下就能进去。</li>
+    </ul>
+
+    <h2>需要知道的局限</h2>
+    <p>
+      MBTI 的四个字母，是把连续倾向在 50% 处切开得来的。分数堆在中间、向两端变薄，所以一个人在 51% 和 49% 之间摇摆时，字母会翻转，但他本人没有变。
+      这不是这份问卷的缺陷，是二分法本身的代价。所以报告里把百分比放在字母前面——<b>百分比才是信息，字母只是标签</b>。
+    </p>
+    <p>
+      本问卷是自编中文题目，维度结构参照公开的 16Personalities（60 题 / 7 级量表 / 含 A-T 身份维度）与 MBTI® Step I（93 题）框架，与 The Myers-Briggs Company 无关联。
+      它不构成心理诊断，也不可用于招聘、筛选或任何对他人不利的决策。
+    </p>
+
+    <div class="actions no-print" style="margin-top:30px">
+      <button class="btn" onclick="location.href='index.html'">开始评估</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var t = 'light';
+  try{ t = localStorage.getItem('mbti-local.theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'); }catch(e){}
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('btnTheme').onclick = function(){
+    var n = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light':'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    try{ localStorage.setItem('mbti-local.theme', n); }catch(e){}
+  };
+})();
+</script>
+</body>
+</html>

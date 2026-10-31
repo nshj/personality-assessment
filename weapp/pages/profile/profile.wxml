@@ -1,0 +1,47 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">第 1 步 / 共 2 步</view>
+    <view class="h2">先填一点背景</view>
+    <view class="lead">
+      这些信息不会离开手机。它们的作用是让最终解读更贴合你的处境——<text class="bk">年龄</text>决定你处在哪个角色转换期，<text class="bk">性别</text>会影响同一特质被允许表达的方式。全部可以不填，直接跳过不影响测试与计分。
+    </view>
+
+    <view class="field">
+      <view class="label">怎么称呼你<text class="sub">选填</text></view>
+      <input class="input" value="{{name}}" maxlength="16" placeholder="昵称，会显示在报告上" bindinput="onName" />
+    </view>
+
+    <view class="field">
+      <view class="label">出生日期<text class="sub">选填 · 只用来算年龄</text></view>
+      <picker mode="date" value="{{birth}}" start="1900-01-01" end="{{today}}" bindchange="onBirth">
+        <view class="input picker {{birth ? '' : 'ph'}}">{{birth || '选择日期'}}</view>
+      </picker>
+      <view wx:if="{{derived}}" class="derived">{{derived}}</view>
+    </view>
+
+    <view class="field">
+      <view class="label">性别<text class="sub">选填 · 用于校准自评偏差</text></view>
+      <view class="chips">
+        <view
+          wx:for="{{genders}}"
+          wx:key="v"
+          class="chip {{gender === item.v ? 'on' : ''}}"
+          data-v="{{item.v}}"
+          bindtap="onGender"
+        >{{item.label}}</view>
+      </view>
+      <view class="hintline">研究里有个稳定现象：男性和女性在自评情感类题目时，会朝各自的社会期待偏一点。填了才能给出这条校准提示。</view>
+    </view>
+
+    <view class="note">
+      <view class="note-h">关于生日与星座</view>
+      <view class="note-li">星座与人格类型<text class="bk">没有可靠的统计关联</text>，所以它不会参与计分，也不会影响任何一个字母。</view>
+      <view class="note-li">但如果你填了生日，报告末尾会附一小段星座对照，明确标注为文化趣味，不代表分析结论。</view>
+    </view>
+
+    <view class="btn-row">
+      <button class="btn" bindtap="onGo">进入答题</button>
+      <button class="btn ghost" bindtap="onSkip">跳过</button>
+    </view>
+  </view>
+</view>

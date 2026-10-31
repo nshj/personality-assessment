@@ -1,0 +1,7 @@
+# 统一用 LF，避免 Windows 与 GitHub Actions 之间反复出现整个文件被改动的 diff
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary

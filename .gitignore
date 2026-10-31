@@ -1,0 +1,11 @@
+# 微信开发者工具的个人配置（含真实 AppID，不进仓库）
+weapp/project.private.config.json
+
+# 开发者工具生成的自动化测试目录
+weapp/minitest/
+
+# 依赖与临时文件
+node_modules/
+*.log
+Thumbs.db
+.DS_Store

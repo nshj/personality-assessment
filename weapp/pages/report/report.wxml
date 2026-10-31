@@ -1,0 +1,282 @@
+<view class="page" wx:if="{{r}}">
+
+  <!-- 类型 -->
+  <view class="hero" wx:if="{{!r.lowInfo}}">
+    <view class="rlabel">你的倾向类型</view>
+    <view class="rcode">{{r.hero.code}}<text class="rid">-{{r.hero.identity}}</text></view>
+    <view class="rname">{{r.hero.name}}</view>
+    <view class="rtag">{{r.hero.groupName}} {{r.hero.group}} · {{r.hero.tag}}</view>
+    <view class="rmeta">
+      <text class="rm" wx:for="{{r.hero.meta}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 信息量不足：不给类型 -->
+  <view class="hero" wx:else>
+    <view class="rlabel">这一轮的结论</view>
+    <view class="rcode rcode-none">—</view>
+    <view class="rname">{{r.lowView.title}}</view>
+    <view class="rtag">{{r.lowView.tag}}</view>
+    <view class="rmeta">
+      <text class="rm" wx:for="{{r.hero.meta}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 01 五维 -->
+  <view class="sec">
+    <view class="sec-h">
+      <text class="num">{{r.no.dims}}</text>
+      <text class="st">五个维度</text>
+      <text class="ssub">条长 = 主导侧比例</text>
+    </view>
+
+    <view class="dim" wx:for="{{r.dims}}" wx:key="k">
+      <view class="dim-head">
+        <view class="pole {{item.plusLead ? 'on' : ''}}">
+          <text>{{item.plusLabel}}</text>
+          <text class="pb">{{item.plus}}</text>
+          <text class="pe">{{item.pctPlus}}%</text>
+        </view>
+        <view class="pole {{item.plusLead ? '' : 'on'}}">
+          <text>{{item.minusLabel}}</text>
+          <text class="pb">{{item.minus}}</text>
+          <text class="pe">{{item.pctMinus}}%</text>
+        </view>
+      </view>
+      <view class="track">
+        <view class="fill {{item.barRight ? 'right' : ''}}" style="width:{{item.leadPct}}%"></view>
+      </view>
+      <view class="dim-foot">
+        <text class="tier">{{item.tierKey}}</text>
+        <text>{{item.title}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 02 可信度 -->
+  <view class="sec">
+    <view class="sec-h">
+      <text class="num">{{r.no.conf}}</text>
+      <text class="st">这份结果可信吗</text>
+    </view>
+
+    <view class="conf">
+      <view class="conf-cell">
+        <text class="ck">作答一致性</text>
+        <text class="cv {{r.conf.gradeClass}}">{{r.conf.overall}}<text class="cu">/100 · {{r.conf.grade}}</text></text>
+      </view>
+      <view class="conf-cell">
+        <text class="ck">中间选项比例</text>
+        <text class="cv">{{r.conf.neutralRate}}<text class="cu">%</text></text>
+      </view>
+      <view class="conf-cell">
+        <text class="ck">两端极端作答</text>
+        <text class="cv">{{r.conf.extremeRate}}<text class="cu">%</text></text>
+      </view>
+    </view>
+
+    <view class="block">
+      <view class="np" wx:for="{{r.conf.notes}}" wx:key="h">
+        <text class="bk">{{item.h}}</text>{{item.b}}
+      </view>
+      <view class="tip">检验方法：每个维度有 6 道正问题与 6 道反问题。若两组指向同一侧，说明作答自洽；若两组相互矛盾，说明该维度的分数不可靠。</view>
+    </view>
+  </view>
+
+  <!-- 信息量不足时的解释（替代 03–08 的类型详解） -->
+  <view class="sec" wx:if="{{r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.explain}}</text>
+      <text class="st">为什么这次不给类型</text>
+      <text class="ssub">宁可说没有，也不猜一个</text>
+    </view>
+    <view class="block">
+      <view class="p">{{r.lowView.why}}</view>
+      <view class="p mt8">{{r.lowView.explain}}</view>
+      <view class="warn">{{r.lowView.tip}}</view>
+      <view class="tip">{{r.lowView.forced}}</view>
+    </view>
+  </view>
+
+  <!-- 03 功能栈 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.stack}}</text>
+      <text class="st">这一型是怎么运作的</text>
+    </view>
+    <view class="block">
+      <view class="p">{{r.stack.core}}</view>
+      <view class="stack">
+        <view class="fn {{item.dom ? 'dom' : ''}}" wx:for="{{r.stack.fns}}" wx:key="code">
+          <text class="f1">{{item.code}}</text>
+          <text class="f2">{{item.label}}</text>
+          <text class="f3">{{item.role}}</text>
+        </view>
+      </view>
+      <view class="tip">{{r.stack.hint}}</view>
+    </view>
+  </view>
+
+  <!-- 04 优势与代价 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.sc}}</text>
+      <text class="st">优势与代价</text>
+      <text class="ssub">同一枚硬币的两面</text>
+    </view>
+    <view class="block">
+      <view class="h3">你天然擅长的</view>
+      <view class="kv-item" wx:for="{{r.strengths}}" wx:key="*this">
+        <text class="dot">{{index + 1}}</text>
+        <text class="kt">{{item}}</text>
+      </view>
+    </view>
+    <view class="block">
+      <view class="h3">这枚硬币的背面</view>
+      <view class="kv-item" wx:for="{{r.costs}}" wx:key="*this">
+        <text class="dot">{{index + 1}}</text>
+        <text class="kt">{{item}}</text>
+      </view>
+    </view>
+    <view class="tip">上面两栏不是优缺点，是同一种倾向在不同场景下的收益与成本。</view>
+  </view>
+
+  <!-- 05 逐维细读 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.dd}}</text>
+      <text class="st">逐维细读</text>
+    </view>
+    <view class="block" wx:for="{{r.dimDetail}}" wx:for-item="dd" wx:key="title">
+      <view class="h3">{{dd.title}} · 你偏{{dd.lead}}</view>
+      <view class="sub-h">{{dd.leadPct}}% · {{dd.tierKey}}</view>
+      <view class="p">{{dd.para}}</view>
+      <view class="p mt8">{{dd.def}}</view>
+      <view class="kv-item" wx:for="{{dd.hi}}" wx:for-item="li" wx:key="*this">
+        <text class="dot sm-dot">·</text>
+        <text class="kt">{{li}}</text>
+      </view>
+      <view class="misread">常见的误读：{{dd.misread}}</view>
+    </view>
+  </view>
+
+  <!-- 06 洞察 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.ins}}</text>
+      <text class="st">针对你的判断</text>
+      <text class="ssub">组合命中 {{r.insights.count}} 条</text>
+    </view>
+    <view class="ins" wx:for="{{r.insights.items}}" wx:key="n">
+      <view class="ins-h">
+        <text class="in">{{item.n}}</text>
+        <text class="it">{{item.title}}</text>
+        <text class="tag">{{item.tag}}</text>
+      </view>
+      <view class="ip">{{item.body}}</view>
+    </view>
+  </view>
+
+  <!-- 07 场景 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.scenes}}</text>
+      <text class="st">工作 · 关系 · 压力</text>
+    </view>
+    <view class="block">
+      <view class="h3">在工作里</view>
+      <view class="p">{{r.scenes.work}}</view>
+    </view>
+    <view class="block">
+      <view class="h3">在关系里</view>
+      <view class="p">{{r.scenes.relation}}</view>
+    </view>
+    <view class="block">
+      <view class="h3">压力下的你</view>
+      <view class="p">{{r.scenes.stress}}</view>
+    </view>
+  </view>
+
+  <!-- 08 成长 -->
+  <view class="sec" wx:if="{{!r.lowInfo}}">
+    <view class="sec-h">
+      <text class="num">{{r.no.growth}}</text>
+      <text class="st">可以试试的三件事</text>
+    </view>
+    <view class="block">
+      <view class="kv-item" wx:for="{{r.growth.items}}" wx:key="*this">
+        <text class="dot">{{index + 1}}</text>
+        <text class="kt">{{item}}</text>
+      </view>
+    </view>
+    <view class="block" wx:if="{{r.growth.ageBand}}">
+      <view class="h3">按你的年龄看（{{r.growth.ageBand.label}}）</view>
+      <view class="p">{{r.growth.ageBand.text}}</view>
+    </view>
+    <view class="block" wx:if="{{r.growth.genderNote}}">
+      <view class="h3">一条自评校准</view>
+      <view class="p">{{r.growth.genderNote}}</view>
+    </view>
+  </view>
+
+  <!-- 09 星座 -->
+  <view class="sec">
+    <view class="sec-h">
+      <text class="num">{{r.no.zod}}</text>
+      <text class="st">星座对照</text>
+      <text class="ssub">非分析结论</text>
+    </view>
+    <view class="zod" wx:if="{{r.zodiac.has}}">
+      <view class="zod-h">
+        <text class="zn">{{r.zodiac.name}}</text>
+        <text class="pill" wx:for="{{r.zodiac.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="p">{{r.zodiac.line}}</view>
+      <view class="warn">这一段不属于分析结果。占星与人格类型之间没有可靠的统计关联，它也没有参与任何一个字母的计算。之所以保留，只是因为你在档案里填了生日，以及很多人喜欢拿它对照着玩——请当成文化符号，不要当成结论。</view>
+    </view>
+    <view class="zod" wx:else>
+      <view class="p">你这次没有填生日，所以这里空着。</view>
+      <view class="warn">这一段本来就不参与任何字母的计算——占星与人格类型之间没有可靠的统计关联，之所以留着，只是因为很多人喜欢拿它对照着玩。想让这里出现，下次测试时在档案页填上生日即可；不填也完全不影响上面任何结论。</view>
+    </view>
+  </view>
+
+  <!-- 10 明细 -->
+  <view class="sec">
+    <view class="sec-h">
+      <text class="num">{{r.no.qs}}</text>
+      <text class="st">60 题作答明细</text>
+    </view>
+    <view class="sheet" bindtap="toggleAnswers">
+      <view class="sheet-h">
+        <text>{{answersOpen ? '收起' : '展开'}}作答明细</text>
+        <text class="sheet-ar">{{answersOpen ? '－' : '＋'}}</text>
+      </view>
+      <view class="sheet-body" wx:if="{{answersOpen}}">
+        <view class="srow" wx:for="{{r.questions}}" wx:key="no">
+          <text class="si">{{item.no}}</text>
+          <text class="stq">{{item.text}}</text>
+          <text class="sv">{{item.answer}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作 -->
+  <view class="ops">
+    <button class="btn" wx:if="{{!r.lowInfo}}" bindtap="onResultCard">生成结果卡</button>
+    <button class="btn" wx:else bindtap="onRetest">重新测一次</button>
+
+    <button class="btn ghost mt" wx:if="{{!r.lowInfo}}" bindtap="onCopyAI">复制给 AI 再分析一次</button>
+
+    <view class="ops-row">
+      <button class="btn ghost sm" bindtap="onHistory">历史记录</button>
+      <button class="btn ghost sm" wx:if="{{!r.lowInfo}}" bindtap="onRetest">重新测试</button>
+    </view>
+  </view>
+
+  <view class="disclaim">
+    本问卷为自编中文题目，维度结构参考公开的 16Personalities（60 题 / 7 级量表）与 MBTI® Step I 框架。<text class="bk">与 The Myers-Briggs Company 无关联</text>，不构成心理诊断，也不可用于招聘、筛选或任何对他人不利的决策。全部计算在本机完成，没有任何数据被发送到网络。
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>

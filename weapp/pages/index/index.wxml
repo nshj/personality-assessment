@@ -1,0 +1,50 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">60 题 · 5 个维度 · 全部在本机完成</view>
+    <view class="h1">MBTI 人格倾向<text class="em">评估</text></view>
+
+    <view class="lead">
+      一份参照 16Personalities（60 题 / 7 级同意度 / 含 A-T 身份维度）与 MBTI® Step I 框架编写的中文自评问卷。答完之后，分析会在这台手机上直接算出来——不联网、不上传、不需要注册。
+    </view>
+
+    <view class="facts">
+      <view class="fact">
+        <text class="fb">60</text>
+        <text class="fs">道题 · 约 8 分钟</text>
+      </view>
+      <view class="fact">
+        <text class="fb">5</text>
+        <text class="fs">维度 · 含情绪稳定性</text>
+      </view>
+      <view class="fact">
+        <text class="fb">0</text>
+        <text class="fs">网络请求</text>
+      </view>
+    </view>
+
+    <view class="note">
+      <view class="note-h">作答前请知道这三件事</view>
+      <view class="note-li">凭第一反应选。犹豫超过 5 秒的题，通常说明两种状态你都符合——选稍偏的那一侧即可。</view>
+      <view class="note-li">四个字母是把<text class="bk">连续倾向</text>在 50% 处切开得到的。得分接近 50% 的维度，字母本身意义不大，以百分比为准。</view>
+      <view class="note-li">题里有正问也有反问。前后矛盾会被检测出来，并直接写进报告的可信度一栏。</view>
+    </view>
+
+    <button class="btn" bindtap="onStart">{{startLabel}}</button>
+
+    <button wx:if="{{resumeN > 0 && resumeN < total}}" class="btn ghost mt" bindtap="onResume">
+      继续上次（{{resumeN}}/{{total}}）
+    </button>
+
+    <button wx:if="{{resumeN >= total}}" class="btn ghost mt" bindtap="onLastResult">
+      查看上次结果
+    </button>
+  </view>
+
+  <view class="row-links">
+    <text class="link" bindtap="onHistory">历史记录（{{historyN}}）</text>
+  </view>
+
+  <view class="foot">
+    <text>答案存在本机，不上传任何数据</text>
+  </view>
+</view>

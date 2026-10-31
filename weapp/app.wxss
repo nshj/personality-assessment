@@ -1,0 +1,136 @@
+/* 全局样式：与网页版同一套色板 */
+
+page {
+  --bg: #f5f3ef;
+  --surface: #ffffff;
+  --surface2: #faf9f7;
+  --ink: #151419;
+  --ink2: #4a4752;
+  --ink3: #6f6b78;
+  --muted: #918c9a;
+  --line: #e6e2db;
+  --line2: #efebe4;
+  --ctrl-line: #9a938a;   /* 控件描边：对白底 3.04:1，结构色不能拿来画控件 */
+  --a1: #6650d2;
+  --a2: #a25fd0;
+  --soft: #f2eefc;
+  --ok: #2f8a6a;
+  --warn: #b8763a;
+  --bad: #c8564a;
+
+  background: #f5f3ef;
+  color: #151419;
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 30rpx;
+  line-height: 1.7;
+}
+
+view, text, button, input {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 32rpx 32rpx calc(48rpx + env(safe-area-inset-bottom));
+}
+
+.card {
+  background: #fff;
+  border: 1rpx solid var(--line);
+  border-radius: 28rpx;
+  padding: 48rpx 40rpx;
+}
+
+.eyebrow {
+  font-size: 22rpx;
+  letter-spacing: 4rpx;
+  color: var(--a1);
+  font-weight: 700;
+  margin-bottom: 24rpx;
+}
+
+.h1 {
+  font-size: 62rpx;
+  line-height: 1.24;
+  font-weight: 700;
+  letter-spacing: -1rpx;
+  margin-bottom: 28rpx;
+}
+
+.h1 .em {
+  color: var(--a1);
+}
+
+.h2 {
+  font-size: 38rpx;
+  font-weight: 700;
+  letter-spacing: -0.5rpx;
+  margin-bottom: 14rpx;
+}
+
+.h3 {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.lead {
+  font-size: 29rpx;
+  line-height: 1.9;
+  color: var(--ink2);
+}
+
+.p {
+  font-size: 28rpx;
+  line-height: 1.9;
+  color: var(--ink2);
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 23rpx; }
+
+/* 按钮 */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92rpx;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--a1), var(--a2));
+  border: none;
+  line-height: 1;
+  padding: 0 32rpx;
+}
+
+.btn::after { border: none; }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--ink2);
+  border: 1rpx solid var(--line);
+}
+
+.btn.sm {
+  height: 72rpx;
+  font-size: 26rpx;
+  border-radius: 16rpx;
+  padding: 0 24rpx;
+}
+
+.btn[disabled] { opacity: 0.4; }
+
+.btn-row {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.btn-row .btn { flex: 1; }
+
+/* 底部安全区占位 */
+.safe-bottom {
+  height: calc(40rpx + env(safe-area-inset-bottom));
+}
