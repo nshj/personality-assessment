@@ -10,20 +10,25 @@
 
 ---
 
-## 0. 先把 V1 打个标记
+## 0. V1 已经打好标记了
 
-在项目根目录（`MBTI双端/`）执行：
+本地仓库已初始化完毕，`main` 分支上是 V1 的完整提交，并打了 `v1.0.0` 标签：
 
 ```bash
-git init                      # 如果还没建仓库
-git add -A
-git commit -m "V1: 网页端与小程序端功能冻结"
-git tag v1.0.0
+git log --oneline     # 可以看到 "V1: 网页端 + 小程序端功能冻结"
+git tag -l            # v1.0.0
+```
+
+只剩**推上去**这一步（首次推送要授权，浏览器里点一下）：
+
+```bash
+git push -u origin main
+git push origin v1.0.0
 ```
 
 后面任何一次改动，都能用 `git checkout v1.0.0` 回到这一版。
 
-**注意**：这一步的仓库是「开发仓库」，包含 `core/`、`weapp/`、`build.js`。下面第 2 节会说明它和「站点仓库」的关系——两者可以是同一个，也可以分开。
+**注意**：这个仓库是「开发仓库」，包含 `core/`、`weapp/`、`build.js`，所以第 2 节用的是**单仓库 + Actions 只发布 `web/`** 的方式。
 
 ---
 
@@ -55,7 +60,7 @@ MBTI双端/
 
 ## 2. 两种仓库组织方式，选一个
 
-### 方案 A：站点仓库（最简单，推荐第一次用）
+### 方案 A：站点仓库（最简单，但本项目没用这版）
 
 仓库里**只放 `web/` 的内容**，`core/`、`weapp/` 留在本地开发仓库。
 
@@ -83,48 +88,20 @@ cd "D:/work/site"
 git add -A && git commit -m "sync web" && git push
 ```
 
-### 方案 B：单仓库 + Actions（推荐长期用）
+### 方案 B：单仓库 + Actions（本项目已采用）
 
 整个 `MBTI双端/` 一个仓库，用 GitHub Actions **只发布 `web/` 子目录**。好处是改完 `node build.js` 直接 push，不用手动拷文件。
 
-仓库根放一个 `.github/workflows/pages.yml`：
+工作流已经写好在 `.github/workflows/pages.yml`，不用你再建。它做四件事：
 
-```yaml
-name: Deploy web
+| 步骤 | 作用 |
+|---|---|
+| `actions/checkout` | 拉下仓库 |
+| `actions/configure-pages` | 读仓库的 Pages 配置 |
+| `actions/upload-pages-artifact`（`path: ./web`） | **只打包 `web/`**，`weapp/`、`core/`、`design/` 都不会上网 |
+| `actions/deploy-pages` | 发布 |
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./web          # ← 关键：只打包 web 目录
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
-```
+触发条件写了 `paths: web/**`，所以只改小程序或文档不会触发重发布。
 
 然后在仓库 **Settings → Pages → Source** 选 **GitHub Actions**（不是 "Deploy from a branch"）。
 
@@ -134,11 +111,11 @@ jobs:
 
 ## 3. 开启 GitHub Pages
 
-1. 新建仓库，**Public**（GitHub 免费账号的 Pages 只对公开仓库开放，私有仓库需要 Pro）
-2. 推代码上去
+1. 仓库已建好：`nshj/personality-assessment`，**Public**（GitHub 免费账号的 Pages 只对公开仓库开放，私有仓库需要 Pro）
+2. 把本地仓库推上去（见第 0 节两条 `git push`）
 3. 仓库 **Settings → Pages**
-   - 方案 A：Source 选 `Deploy from a branch`，Branch 选 `main` + `/ (root)`
-   - 方案 B：Source 选 `GitHub Actions`
+   - 本项目用方案 B：Source 选 `GitHub Actions`
+   - 若改用方案 A：Source 选 `Deploy from a branch`，Branch 选 `main` + `/ (root)`
 4. 等 1–3 分钟，页面顶部会出现 `Your site is live at https://用户名.github.io/仓库名/`
 
 ### 第一次上线自检
