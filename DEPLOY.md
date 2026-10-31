@@ -44,7 +44,7 @@ MBTI双端/
 │   ├── guide.html
 │   ├── 404.html
 │   ├── .nojekyll      ← 必须有，否则 GitHub 会拿 Jekyll 过一遍
-│   ├── assets/        style.css / app.js / report.js / site.js / wx-qrcode.png
+│   ├── assets/        style.css / app.js / report.js / site.js / wx-qrcode.png / favicon-32.png
 │   └── core/          build.js 生成的副本，不要手改
 └── weapp/         小程序源码，与网站无关，不用上传（除非你想开源）
 ```
