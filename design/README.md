@@ -18,3 +18,17 @@
 
 渲染脚本：`D:/MBTI/.e2e/render-avatars.js`（Edge + playwright-core，SVG 必须内联进 HTML 再截图，
 用 `<img src="file://...">` 会被 about:blank 的安全策略挡住，截出空白图）。
+
+## 网页 favicon
+
+`favicon.svg` / `favicon-touch.svg` 是网页标签页与手机主屏用的图标，和上面那七个头像不是一回事：
+
+- 概念沿用「环 + 点」，但改成**品牌紫底 + 白色环形与白点**。原因：浅色环配浅底的版本缩到 16px 时，
+  环几乎看不见，只剩一个发灰的小方块
+- 点放在**圆心**而不是偏心位置。偏心珠在 32px 以下会和环粘成一个"缺口的圆"，反而更像坏图
+- `favicon.svg` 四角圆角、四周透明；`favicon-touch.svg` 满幅铺满（iOS 会自己套圆角遮罩）
+
+产物在 `web/assets/`：`favicon-32.png`（标签页）、`favicon-192.png`（高分屏 / PWA）、
+`apple-touch-icon.png`（180×180，iOS 加主屏）。渲染脚本 `D:/MBTI/.e2e/render-favicon.js`。
+
+`404.html` 刻意不引用这三个图：它会被任意层级的不存在路径调用，相对路径会失效。
