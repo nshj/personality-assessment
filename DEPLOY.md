@@ -123,7 +123,7 @@ git add -A && git commit -m "sync web" && git push
 
 | # | 检查 | 期望 |
 |---|---|---|
-| 1 | 打开首页 | 出现封面，标题栏是「MBTI 人格倾向评估 · 用户名.github.io」 |
+| 1 | 打开首页 | 出现封面，标题栏是「MBTI 人格倾向评估 · 域名」——绑定前显示 `nshj.github.io`，绑定后自动变成 `60.2x.work` |
 | 2 | 点「开始」答完 60 题 | 能正常生成报告（这一条必须验，之前踩过自引用导致的静默报错） |
 | 3 | 直接访问 `/guide.html` | 正常打开，不是 404 |
 | 4 | 随便访问一个不存在的路径 | 出现自定义 404 页，不是 GitHub 默认页 |
@@ -148,55 +148,64 @@ git add -A && git commit -m "sync web" && git push
 
 > 域名本身要在腾讯云完成**实名认证**，未实名的域名会被暂停解析。这是实名，不是备案，两件事别混。
 
-### 4.2 DNSPod 添加解析
+### 4.2 选用子域名 `60.2x.work`，只需要 1 条记录
 
-进 腾讯云控制台 → 域名与网站 → **DNS 解析 DNSPod** → 你的域名 → 添加记录。
+域名为 `2x.work`，站点绑定在子域名 **`60.2x.work`**。
 
-假设你的域名是 `example.com`，GitHub 用户名 `yourname`：
-
-| 主机记录 | 记录类型 | 记录值 | TTL |
+| 方案 | 记录条数 | 类型 | 维护成本 |
 |---|---|---|---|
-| `@` | A | `185.199.108.153` | 600 |
-| `@` | A | `185.199.109.153` | 600 |
-| `@` | A | `185.199.110.153` | 600 |
-| `@` | A | `185.199.111.153` | 600 |
-| `www` | CNAME | `yourname.github.io` | 600 |
+| **子域名 `60.2x.work`（本项目采用）** | **1 条** | CNAME | 换托管只改一行 |
+| 裸域 `2x.work` | 4 条 A（+4 条 AAAA） | A | 换托管要改四行；GitHub 换 IP 时也得跟着改 |
 
-四个 A 记录是 GitHub Pages 的固定 IP，全加上比只加一个稳。想同时支持 IPv6 可以再加 AAAA：
+裸域上不能写 CNAME（RFC 限制，DNSPod 也不做 CNAME 拉平），只能拿 A 记录指向具体 IP，所以记录更多、更脆。子域名一条 CNAME 指到 `nshj.github.io` 就够。
 
-```
-2606:50c0:8000::153
-2606:50c0:8001::153
-2606:50c0:8002::153
-2606:50c0:8003::153
-```
+### 4.3 DNSPod 添加解析（手动，1 条）
 
-⚠️ 三条容易踩的坑：
+腾讯云控制台 → 域名与网站 → **DNS 解析 DNSPod** → `2x.work` → **添加记录**，只填这一条：
 
-- **CNAME 的记录值不要带 `https://`，不要带路径，末尾不要加点。** 只写 `yourname.github.io`
-- 如果 `@` 上原来有别的 A 记录（比如域名停靠页），**先删掉**，否则会随机跳到旧页面
-- `www` 用 CNAME 指向 `github.io`，**不要**填 IP。填 IP 会让 HTTPS 证书签不下来
+| 字段 | 填什么 |
+|---|---|
+| 主机记录 | **`60`** ← 只填 `60`，不要填 `60.2x.work`，也不要带点 |
+| 记录类型 | **`CNAME`** |
+| 记录值 | **`nshj.github.io`** ← 不带 `https://`、不带路径、末尾不加点 |
+| 线路类型 | 默认 |
+| TTL | 600（默认） |
 
-### 4.3 GitHub 侧绑定
+保存后一般 1–10 分钟生效。
 
-仓库 **Settings → Pages → Custom domain** 填 `example.com`（或 `www.example.com`）→ Save。
+⚠️ 四个坑：
 
-- 填裸域（`example.com`）：`https://example.com` 是主地址，`www` 一般会被 GitHub 自动跳过来
-- 填 `www.example.com`：反过来。国内用户更习惯不带 www，建议**填裸域**
+- 主机记录只填 `60`。保存后列表里显示的完整域名应该是 `60.2x.work`；若显示成 `60.2x.work.2x.work`，说明多填了后缀，删掉重来
+- 记录值必须是 `nshj.github.io`，**不是** `nshj.github.io/personality-assessment`，更不是 IP
+- CNAME 记录和其他记录互斥：`60` 这个主机记录下不能再有 A / AAAA / TXT 同名记录，有就先删
+- CNAME 不要加在 `@` 上，那会和根域名的 NS/SOA 冲突
 
-保存后 GitHub 会做一次 DNS 检查，最快几十秒，慢的话十分钟。检查通过后：
+### 4.4 GitHub 侧绑定（手动，填一格）
 
-1. 勾上 **Enforce HTTPS**（可能要等证书签发，几分钟到几小时；勾不上就等一会儿再来）
-2. 验证：`http://example.com` 应自动跳 `https://`
+仓库 **Settings → Pages → Custom domain** 填 `60.2x.work` → **Save**。
 
-### 4.4 CNAME 文件（容易被忽略）
+输入框下方会出现 DNS 检查状态：
 
-GitHub 的 Custom domain 设置会在**部署产物根目录**找 `CNAME` 文件。如果没有，某些情况下自定义域名会莫名其妙被清空。
+| 状态 | 含义 | 怎么办 |
+|---|---|---|
+| `DNS check successful` | 解析已指向 GitHub | 等证书签发，进行下一步 |
+| `DNS check unsuccessful` / `InvalidDNSError` | 记录没生效或填错 | 回 4.3 核对主机记录与记录值；刚加完可能还在生效，等 5–10 分钟再点 Save 重试 |
+| `Domain is already taken` | 该域名被别的仓库/账号占用 | 换子域名，或去旧仓库解除绑定 |
 
-- **方案 A**：在仓库根新建文件 `CNAME`，内容只有一行：`example.com`（不带协议、不带斜杠）
-- **方案 B**：在 `web/` 目录下新建 `CNAME`，内容同上，让它随 artifact 一起发布
+通过后勾 **Enforce HTTPS**。证书由 GitHub 自动签发（Let's Encrypt），子域名通常几分钟内可用；灰着点不了是正常的，等一会儿刷新页面再来。
 
-这个文件和 `.nojekyll` 一样，属于「不写不报错、写了不会错」的东西，建议都写上。
+### 4.5 CNAME 文件（已建好）
+
+`web/CNAME` 已存在，内容一行：`60.2x.work`。它随 Actions 打进部署产物，作用是**防止自定义域名被清空**——GitHub 在某些情况下会把产物里不存在的域名设置重置掉。
+
+⚠️ 但要清楚：**用 GitHub Actions 发布时，CNAME 文件不保证能自动完成绑定**，4.4 那一步手动设置仍然要做一次。
+
+### 4.6 绑定之后会发生什么
+
+- `https://60.2x.work/` 成为主地址；旧的 `https://nshj.github.io/personality-assessment/` 会 **301 跳到新域名**（GitHub 自动处理）
+- 站内资源全是相对路径，站点根从 `/personality-assessment/` 变成 `/`，**不需要改任何代码**
+- 浏览器标题取 `location.hostname`，会自动变成「MBTI 人格倾向评估 · 60.2x.work」
+- 报告导出 PDF 时，文件名也跟着换成新域名
 
 ### 4.5 验证 DNS 生效
 
