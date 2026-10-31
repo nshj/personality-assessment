@@ -4,6 +4,8 @@
 
 没有服务器、没有账号、没有网络请求。所有数据留在用户自己的设备上。
 
+**在线试用**：https://nshj.github.io/personality-assessment/
+
 <p align="center">
   <img src="design/miniprogram-code.png" width="220" alt="微信扫码打开小程序「人格倾向评估」">
   <br>

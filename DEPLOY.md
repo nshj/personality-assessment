@@ -3,6 +3,7 @@
 本文只讲一件事：**把 `web/` 变成一个别人能打开的网址**，以及后期把腾讯云域名挂上去。
 
 - V1 状态：网页端 + 小程序端功能已真机验收，代码冻结
+- **当前线上地址**：https://nshj.github.io/personality-assessment/（2026-10-31 通过 Actions 发布，已实测首页 / 60 题全流程 / 关于页 / 404）
 - 部署目标：GitHub Pages（免费、免备案、自带 HTTPS）
 - 域名来源：腾讯云注册的域名 → 腾讯云 DNSPod 解析 → 指向 GitHub Pages
 
