@@ -3,7 +3,7 @@
 本文只讲一件事：**把 `web/` 变成一个别人能打开的网址**，以及后期把腾讯云域名挂上去。
 
 - V1 状态：网页端 + 小程序端功能已真机验收，代码冻结
-- **当前线上地址**：https://nshj.github.io/personality-assessment/（2026-10-31 通过 Actions 发布，已实测首页 / 60 题全流程 / 关于页 / 404）
+- **当前线上地址**：https://60.2x.work/（2026-10-31 绑定自定义域名；已实测首页 / 60 题全流程 / 关于页 / 404 / 证书）
 - 部署目标：GitHub Pages（免费、免备案、自带 HTTPS）
 - 域名来源：腾讯云注册的域名 → 腾讯云 DNSPod 解析 → 指向 GitHub Pages
 
@@ -194,6 +194,8 @@ git add -A && git commit -m "sync web" && git push
 
 通过后勾 **Enforce HTTPS**。证书由 GitHub 自动签发（Let's Encrypt），子域名通常几分钟内可用；灰着点不了是正常的，等一会儿刷新页面再来。
 
+> **顺序很重要**：DNS 生效之后、在 Pages 里保存 Custom domain **之前**，不要用浏览器先去访问这个域名。那次访问会拿到 GitHub 的「Site not found」404，而这类 404 没有 `Cache-Control`，会被 CDN 缓存很久——之后即使绑定成功，根路径仍会 404 一段时间。真踩了也不用慌，见 4.8 排错表第一行。
+
 ### 4.5 CNAME 文件（已建好）
 
 `web/CNAME` 已存在，内容一行：`60.2x.work`。它随 Actions 打进部署产物，作用是**防止自定义域名被清空**——GitHub 在某些情况下会把产物里不存在的域名设置重置掉。
@@ -207,7 +209,7 @@ git add -A && git commit -m "sync web" && git push
 - 浏览器标题取 `location.hostname`，会自动变成「MBTI 人格倾向评估 · 60.2x.work」
 - 报告导出 PDF 时，文件名也跟着换成新域名
 
-### 4.5 验证 DNS 生效
+### 4.7 验证 DNS 生效
 
 ```bash
 # Windows / macOS / Linux 都能用
@@ -220,11 +222,12 @@ nslookup www.example.com
 
 看到 `185.199.108.x` 就对了。本地没生效先清 DNS 缓存：Windows `ipconfig /flushdns`，macOS `sudo dscacheutil -flushcache`。
 
-### 4.6 排错速查
+### 4.8 排错速查
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
 | 打开是 404，但 `xxx.github.io` 正常 | 域名没在 Pages 里保存成功，或 CNAME 文件被覆盖 | 重新填 Custom domain，确认仓库有 CNAME 文件 |
+| **根路径 `/` 404，但 `/index.html` 是 200** | 域名绑定**之前**已经访问过这个域名，GitHub 那次返回的「Site not found」被 CDN 缓存了，且这类 404 没有 `Cache-Control`，会缓存很久 | 推一次 `web/` 下的任意改动重新部署（部署会清站点缓存），或等缓存自然过期。**本项目就踩过**，见下 |
 | 打开是腾讯云的域名停靠页 | `@` 上残留了老的 A 记录 | 删掉旧记录，只留 GitHub 的四个 IP |
 | 「Enforce HTTPS」是灰的 | 证书还在签发，或 `www` 用了 A 记录指 IP | 等；把 `www` 改成 CNAME |
 | 提示 `Domain is already taken` | 该域名已绑在别的 GitHub 账号/仓库上 | 去旧仓库 Settings → Pages 解绑 |
