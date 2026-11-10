@@ -115,7 +115,7 @@ var AIExport = (function () {
     L.push('> AI 可以先独立复算一遍，再开始分析。');
     L.push('');
     L.push('- **生成时间**：' + stamp());
-    L.push('- **工具**：MBTI 人格倾向评估 · 本地分析版（自编中文题，结构参考 16Personalities 60 题 / 7 级量表，与 MBTI® Step I 的四维二分框架）');
+    L.push('- **工具**：60 人格倾向评估 · 本地分析版（自编中文题，结构参考 16Personalities 60 题 / 7 级量表，与 MBTI® Step I 的四维二分框架）');
     L.push('- **题目结构**：60 题 · 5 维度 · 每维 12 题（正反向各 6 题）');
     profileLines(profile).forEach(function (s) { L.push(s); });
     L.push('- **结果**：`' + result.fullCode + '`（' + t.name + ' · ' + (GROUP_INFO[t.group] ? GROUP_INFO[t.group].name : '') + ' ' + t.group + '）');

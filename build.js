@@ -12,7 +12,7 @@ const path = require('path');
 const ROOT = __dirname;
 const CORE = path.join(ROOT, 'core');
 
-/* 7 个文件必须放在同一个目录里，因为互相之间有 require('./xxx.js') */
+/* 8 个文件必须放在同一个目录里，因为互相之间有 require('./xxx.js') */
 const FILES = [
   'questions.js',
   'dims.js',
@@ -20,7 +20,8 @@ const FILES = [
   'rules.js',
   'profile.js',
   'analyzer.js',
-  'exportAI.js'
+  'exportAI.js',
+  'share.js'
 ];
 
 function copyTo(dir) {

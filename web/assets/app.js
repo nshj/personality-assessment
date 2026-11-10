@@ -430,8 +430,24 @@
 
   function finish() { showReport(); }
 
+  /* 从手机端接力进来时的横幅。打印时隐藏（no-print），
+     否则这一块会出现在 PDF 第一页顶上 */
+  function relayBanner() {
+    return '<div class="relay no-print">' +
+      '<div class="relay-main">' +
+      '<div class="relay-h"><span class="relay-tag">接力</span>这 60 题是在手机里答的，答案已还原</div>' +
+      '<p class="relay-p">不用重答。这份报告和你手机上看到的完全一致，现在是可打印的完整版——' +
+      '在打印对话框里选「另存为 PDF」即可。</p>' +
+      '</div>' +
+      '<div class="relay-act">' +
+      '<button class="btn sm" id="btnRelayPrint">打印 / 存为 PDF</button>' +
+      '<span class="relay-kbd">或 Ctrl / ⌘ + P</span>' +
+      '</div>' +
+      '</div>';
+  }
+
   /* 生成并展示报告。首页的「查看上次结果」也走这里，不再靠刷新自动跳转 */
-  function showReport() {
+  function showReport(fromShare) {
     var blank = state.answers.indexOf(0);
     if (blank !== -1) {
       state.idx = blank;
@@ -444,8 +460,14 @@
     var result = window.Analyzer.score(state.answers);
     var profile = buildProfile();
 
-    scrReport.innerHTML = window.Report.render(result, profile, state.answers);
+    scrReport.innerHTML = (fromShare ? relayBanner() : '') +
+      window.Report.render(result, profile, state.answers);
     bindReport(result, profile);
+
+    if (fromShare) {
+      var rp = document.getElementById('btnRelayPrint');
+      if (rp) rp.onclick = function () { window.print(); };
+    }
 
     state.done = true;
     save();
@@ -551,7 +573,7 @@
 
   function download(result, profile) {
     var payload = {
-      instrument: 'MBTI 人格倾向自测（自编中文题，结构参考 16Personalities / MBTI Step I）',
+      instrument: '60 人格倾向评估（自编中文题，结构参考 16Personalities / MBTI Step I）',
       version: '2.0-local',
       engine: '浏览器本地计算，无网络请求',
       completedAt: new Date().toISOString(),
@@ -599,10 +621,45 @@
     toast('已下载完整数据');
   }
 
+  /* ---------------- 从链接接力 ---------------- */
+  /* 链接形如 60.2x.work/#r=<70 位>。# 之后的内容浏览器不发给
+     服务器，所以计算仍然全部在本机，隐私承诺不用改口。 */
+  function takeShareLink() {
+    var h = '';
+    try { h = (location.hash || '').replace(/^#/, ''); } catch (e) { return false; }
+
+    var m = /(?:^|&)r=([0-9a-z]+)/i.exec(h);
+    if (!m || !window.ShareCode) return false;
+
+    var got = window.ShareCode.decode(m[1]);
+    if (!got.ok) {
+      /* 版本不符 = 旧题库的链接。必须说清楚，不能装作没事按新题重算 */
+      toast(got.reason === 'version'
+        ? '这个链接来自旧版题目，请在小程序里重新导出'
+        : '链接不完整，已按普通模式打开');
+      return false;
+    }
+
+    state.answers = got.answers;
+    state.idx = 0;
+    state.done = true;
+    state.profile = got.profile;
+
+    fName.value = '';
+    fBirth.value = got.profile.birth;
+    Array.prototype.forEach.call(fGender.children, function (c) {
+      c.classList.toggle('on', c.dataset.v === (got.profile.gender || ''));
+    });
+    refreshDerived();
+
+    showReport(true);
+    return true;
+  }
+
   /* ---------------- 恢复草稿 ---------------- */
   /* 刷新后一律停在首页，不再自动跳报告：顶栏能回首页之后，
      自动跳转会让用户觉得「回不去」。报告改为按需渲染 */
-  (function restore() {
+  function restore() {
     var s = load();
     if (!s) { refreshIntro(); return; }
 
@@ -628,5 +685,8 @@
     }
 
     refreshIntro();
-  })();
+  }
+
+  /* 链接优先于本地草稿：用户是主动点进来的，以链接里的作答为准 */
+  if (!takeShareLink()) restore();
 })();

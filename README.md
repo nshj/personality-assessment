@@ -1,4 +1,4 @@
-# MBTI 人格倾向评估 · 双端
+# 60 人格倾向评估 · 双端
 
 一个项目，两个壳：网页版和微信小程序版。两边共用同一套 60 道题、同一套计分与一致性检验，所以同一份作答在两边算出来的百分比完全一致。
 
@@ -7,7 +7,7 @@
 **在线试用**：https://60.2x.work/
 
 <p align="center">
-  <img src="design/miniprogram-code.png" width="220" alt="微信扫码打开小程序「人格倾向评估」">
+  <img src="design/miniprogram-code.png" width="220" alt="微信扫码打开小程序「60 人格倾向评估」">
   <br>
   <sub>微信扫码，直接在手机上做一遍</sub>
 </p>

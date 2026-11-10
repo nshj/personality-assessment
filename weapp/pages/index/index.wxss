@@ -89,3 +89,14 @@
   color: var(--muted);
   margin-top: 40rpx;
 }
+
+.foot-l1 { font-size: 22rpx; }
+
+/* 脚注级：不抢「开始」的注意力，只在犹豫的人回头找的时候看得见 */
+.foot-web {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx dashed var(--line);
+  font-size: 22rpx;
+  color: var(--muted);
+}

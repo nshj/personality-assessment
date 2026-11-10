@@ -1,7 +1,7 @@
 <view class="page">
   <view class="card">
     <view class="eyebrow">60 题 · 5 个维度 · 全部在本机完成</view>
-    <view class="h1">MBTI 人格倾向<text class="em">评估</text></view>
+    <view class="h1">60 人格倾向<text class="em">评估</text></view>
 
     <view class="lead">
       一份参照 16Personalities（60 题 / 7 级同意度 / 含 A-T 身份维度）与 MBTI® Step I 框架编写的中文自评问卷。答完之后，分析会在这台手机上直接算出来——不联网、不上传、不需要注册。
@@ -45,6 +45,7 @@
   </view>
 
   <view class="foot">
-    <text>答案存在本机，不上传任何数据</text>
+    <view class="foot-l1">答案存在本机，不上传任何数据</view>
+    <view class="foot-web">想要可打印的完整版 · <text class="bk">60.2x.work</text></view>
   </view>
 </view>

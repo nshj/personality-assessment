@@ -470,3 +470,42 @@
   padding-top: 32rpx;
   border-top: 1rpx solid var(--line2);
 }
+
+/* 署名单独一行、比正文深一档：整段同色同号会糊成一块灰砖，
+   截图时域名也就跟着一起糊掉 */
+.disclaim-by {
+  font-size: 22rpx;
+  color: var(--ink3);
+  margin-bottom: 8rpx;
+}
+.disclaim-by .bk { color: var(--ink); font-weight: 600; }
+.disclaim-body { font-size: 21rpx; color: var(--muted); line-height: 1.9; }
+
+/* 导出完整版 */
+.pdfcard {
+  margin-top: 40rpx;
+  background: var(--soft);
+  border: 1rpx solid #d9cffa;
+  border-radius: 20rpx;
+  padding: 32rpx 28rpx 28rpx;
+}
+.pdfcard-h {
+  font-size: 29rpx;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12rpx;
+}
+.pdfcard-p {
+  font-size: 24rpx;
+  line-height: 1.75;
+  color: var(--ink2);
+  margin-bottom: 24rpx;
+}
+.pdfcard-p .bk { color: var(--ink); font-weight: 600; }
+.pdfcard-tip {
+  font-size: 21rpx;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-top: 16rpx;
+  text-align: center;
+}

@@ -122,6 +122,30 @@ p{color:var(--ink-2);font-size:14.5px;line-height:1.9}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .actions.center{justify-content:center}
 
+/* ---------- 接力横幅（从手机端带答案进来时） ---------- */
+.relay{
+  display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
+  background:var(--soft);border:1px solid rgba(102,80,210,.22);border-radius:var(--r-md);
+  padding:14px 16px;margin-bottom:18px;
+}
+.relay-main{flex:1 1 320px;min-width:0}
+.relay-h{
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+  font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:4px;
+}
+.relay-tag{
+  background:var(--a1);color:#fff;font-size:11px;font-weight:500;
+  padding:1px 6px;border-radius:4px;letter-spacing:.3px;
+}
+.relay-p{font-size:12.5px;line-height:1.7;color:var(--ink-2);margin:0}
+.relay-act{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:0 0 auto;flex-shrink:0}
+.relay-kbd{font-size:11px;color:var(--muted)}
+@media(max-width:720px){
+  .relay-act{align-items:stretch;width:100%}
+  .relay-kbd{text-align:center}
+  .relay-main{flex:1 1 100%}
+}
+
 /* ---------- 介绍页 ---------- */
 .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:13px;overflow:hidden;margin:28px 0}
 .fact{background:var(--surface);padding:16px 18px}
@@ -329,6 +353,9 @@ html[data-theme="dark"] .wxcard-qr{background:#fff;border-color:rgba(255,255,255
   padding:12px;color:var(--ink-3);resize:none;height:72px;font-variant-numeric:tabular-nums;margin-top:12px;
 }
 .foot{margin-top:26px;padding-top:20px;border-top:1px solid var(--line-2);font-size:11px;color:var(--muted);line-height:1.9;text-align:center}
+/* 署名比正文深一档：这一行要能在打印出来的纸面上认出来 */
+.foot-by{font-size:13px;color:var(--ink-3);margin-bottom:7px;letter-spacing:.2px}
+.foot-by b{color:var(--ink-2);font-weight:600}
 
 /* 明细表 */
 details.sheet{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--surface)}

@@ -2,10 +2,15 @@ const app = getApp();
 const Analyzer = require('../../core/analyzer.js');
 const ProfileData = require('../../core/profile.js');
 const AIExport = require('../../core/exportAI.js');
+const ShareCode = require('../../core/share.js');
 const ReportData = require('../../utils/reportData.js');
 const Store = require('../../utils/store.js');
 
 const GENDER_LABEL = { male: '男', female: '女', other: '其他' };
+
+/* 导出链接固定指向网页端。写成常量而不是读配置：
+   这里一旦拼错，用户拿到的是打不开的死链，而且没有兜底 */
+const SITE_URL = 'https://60.2x.work/';
 
 function buildProfile(raw) {
   const p = raw || {};
@@ -126,6 +131,27 @@ Page({
       data: text,
       success: function () {
         /* 系统已自带「内容已复制」提示，这里不再叠加 */
+      },
+      fail: function () {
+        wx.showToast({ title: '复制失败，请重试', icon: 'none' });
+      }
+    });
+  },
+
+  /* 把 60 题答案压进链接，复制到剪贴板。
+     不能给可点的链接：微信内置浏览器里没有打印入口，
+     点进去只会白跑一趟，所以这里只复制，配一句去浏览器。 */
+  onExportLink() {
+    const code = ShareCode.ShareCode.encode(this._answers, this._profile);
+    if (!code) {
+      wx.showToast({ title: '作答不完整，无法生成链接', icon: 'none' });
+      return;
+    }
+    wx.setClipboardData({
+      data: SITE_URL + '#r=' + code,
+      success: function () {
+        /* 覆盖系统的「内容已复制」，把下一步动作带上 */
+        wx.showToast({ title: '已复制 · 打开浏览器粘贴', icon: 'none', duration: 3000 });
       },
       fail: function () {
         wx.showToast({ title: '复制失败，请重试', icon: 'none' });

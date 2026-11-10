@@ -111,7 +111,7 @@ Page({
     ctx.textAlign = 'center';
     ctx.fillStyle = '#918c9a';
     ctx.font = '500 24px ' + SANS;
-    ctx.fillText('MBTI 人格倾向评估', W / 2, 120);
+    ctx.fillText('60 人格倾向评估', W / 2, 120);
 
     /* 类型码 */
     const code = R.code;

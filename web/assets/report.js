@@ -340,7 +340,8 @@ window.Report = (function () {
 
   function footer() {
     return '<div class="foot">' +
-      '本问卷为自编中文题目，维度结构参考公开的 16Personalities（NERIS Type Explorer®，60 题 / 7 级量表）与 MBTI® Step I（93 题）框架。<br>' +
+      '<div class="foot-by">本问卷由 <b>60.2x.work</b> 提供。</div>' +
+      '题目自编，维度结构参考公开的 16Personalities（60 题 / 7 级量表）与 MBTI® Step I 框架。<br>' +
       '与 The Myers-Briggs Company 无关联，不构成心理诊断，也不可用于招聘、筛选或任何对他人不利的决策。<br>' +
       '全部计算在你的浏览器内完成，没有任何数据被发送到网络。' +
       '</div>';

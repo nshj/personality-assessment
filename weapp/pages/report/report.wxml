@@ -268,6 +268,14 @@
 
     <button class="btn ghost mt" wx:if="{{!r.lowInfo}}" bindtap="onCopyAI">复制给 AI 再分析一次</button>
 
+    <!-- 导出完整版：只复制链接，不给可点的，微信里点开会白跑一趟 -->
+    <view class="pdfcard" wx:if="{{!r.lowInfo}}">
+      <view class="pdfcard-h">存一份完整版（PDF）</view>
+      <view class="pdfcard-p">复制下面的链接到浏览器打开，<text class="bk">60 题答案会一起带过去，不用重答</text>。在页面上点「打印」，选「另存为 PDF」就能存下来。</view>
+      <button class="btn" bindtap="onExportLink">复制导出链接</button>
+      <view class="pdfcard-tip">链接在你手机上生成，不上传任何服务器；里面含你的生日，转发给他人时留意。</view>
+    </view>
+
     <view class="ops-row">
       <button class="btn ghost sm" bindtap="onHistory">历史记录</button>
       <button class="btn ghost sm" wx:if="{{!r.lowInfo}}" bindtap="onRetest">重新测试</button>
@@ -275,7 +283,8 @@
   </view>
 
   <view class="disclaim">
-    本问卷为自编中文题目，维度结构参考公开的 16Personalities（60 题 / 7 级量表）与 MBTI® Step I 框架。<text class="bk">与 The Myers-Briggs Company 无关联</text>，不构成心理诊断，也不可用于招聘、筛选或任何对他人不利的决策。全部计算在本机完成，没有任何数据被发送到网络。
+    <view class="disclaim-by">本问卷由 <text class="bk">60.2x.work</text> 提供</view>
+    <view class="disclaim-body">题目自编，参考 16Personalities 与 MBTI® Step I 框架；与 The Myers-Briggs Company 无关联，不构成心理诊断，不可用于招聘或筛选。全部计算在本机完成。</view>
   </view>
 
   <view class="safe-bottom"></view>
